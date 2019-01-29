@@ -2,13 +2,9 @@ package main
 
 import (
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"os/exec"
-	"path/filepath"
-	"strconv"
 
 	"github.com/davecgh/go-spew/spew"
 )
@@ -25,51 +21,35 @@ func main() {
 
 		url := r.URL.Query()["video_url"][0]
 
-		tmpDir, err := ioutil.TempDir("/tmp", "youtube_dl_web")
+		// First, let's figure out filename
+		cmd := exec.Command("youtube-dl", "--get-filename", url)
+		outbuf, err := cmd.Output()
 		if err != nil {
 			spew.Dump(err)
-			http.Error(w, "Cannot create tmp dir", 500)
+			http.Error(w, "Cannot determine file name", 500)
 			return
 		}
-		defer os.Remove(tmpDir)
 
-		outputTempl := tmpDir + "/%(title)s.%(ext)s"
+		outputFilename := string(outbuf)
 
-		cmd := exec.Command("youtube-dl", "-o", outputTempl, url)
+		w.Header().Set("Content-Disposition", "attachment; filename="+outputFilename)
+
+		cmd = exec.Command("youtube-dl", "--no-part", "-o", "-", url)
 
 		spew.Dump(cmd)
 
-		err = cmd.Run()
+		outPipe, err := cmd.StdoutPipe()
 		if err != nil {
 			spew.Dump(err)
-			http.Error(w, "downloading failed", 500)
+			http.Error(w, "Internal error", 500)
 			return
 		}
 
-		files, err := ioutil.ReadDir(tmpDir)
-		if err != nil || len(files) != 1 {
-			spew.Dump(err)
-			http.Error(w, "downloading failed - cannot find downloaded file", 500)
-			return
-		}
+		go cmd.Run() // XXX: disregarding errors for now
 
-		outputFile := files[0]
+		w.WriteHeader(200)
 
-		w.Header().Set("Content-Disposition", "attachment; filename="+outputFile.Name())
-		w.Header().Set("Content-Length", strconv.FormatInt(outputFile.Size(), 10))
-
-		filename := filepath.Join(tmpDir, outputFile.Name())
-
-		openfile, err := os.Open(filename)
-		if err != nil {
-			spew.Dump(err)
-			http.Error(w, "cannot open file", 500)
-			return
-		}
-
-		defer openfile.Close()
-
-		io.Copy(w, openfile)
+		io.Copy(w, outPipe)
 	})
 
 	log.Println("Listening for HTTP requests...")
