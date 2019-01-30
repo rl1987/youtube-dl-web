@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os/exec"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/davecgh/go-spew/spew"
 )
 
@@ -20,6 +21,12 @@ func main() {
 		}
 
 		url := r.URL.Query()["video_url"][0]
+
+		if !govalidator.IsURL(url) {
+			log.Printf("video_url failed validation: %s", url)
+			http.Error(w, "video_url parameter invalid", 500)
+			return
+		}
 
 		// First, let's figure out filename
 		cmd := exec.Command("youtube-dl", "--get-filename", url)
