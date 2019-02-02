@@ -1,13 +1,154 @@
 <!DOCTYPE html>
+	<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- css stylesheet - by ojasya -->
+        <style type="text/css">
+			html,body{
+				height: 100%;
+				min-height: 100%;
+				overflow-x:hidden;
+			}
+			body ,body *{
+			  box-sizing:border-box;
+			  -webkit-box-sizing:border-box;
+			  -moz-box-sizing:border-box;
+			  box-sizing:border-box;
+			}
+			body{
+				background-image: linear-gradient(-225deg, #A8BFFF 0%, #884D80 100%);
+				min-height: 100%;
+				margin: 0;
+				padding: 10px;
+				box-sizing:border-box;
+				text-align: center;
+				color: #ffffff;
+				font-size: 16px;
+				font-family: arial;
+				line-height: 1.5;
+
+			}
+
+			a{
+				text-decoration: none;
+				color: #ffff1b;
+				font-weight: bold;
+				transition: .5s ease all;
+				text-shadow: 0px 0px 3px rgba(0,0,0,0.8);
+			}
+			a:hover{
+				color:#f729a9;
+				text-shadow: 0px 0px 3px rgba(255,255,255,0.8);
+			}
+
+			p{
+				margin: 0 0 25px;
+			}
+
+			.outer-wrapper{
+			    height: 100%;
+			    width: 100%;
+			    display: table;
+			}
+			.inner-wrapper {
+			    display: table-cell;
+			    height: 100%;
+			    vertical-align: middle;
+			}
+
+			h2{
+				font-weight: bold;
+				font-size: 26px;
+			}
+
+			h3{
+				font-size: 26px;
+				font-weight: bold;
+			}
+
+			.seprator{
+				width: 100%;
+				max-width: 350px;
+				height: 2px;
+				background: #ffffff;
+				clear: both;
+				margin: 35px auto;
+
+			}
+
+			form{
+				background: rgba(0,0,0,0.3);
+				padding: 30px 15px;
+				max-width: 430px;
+			    width: 100%;
+			    margin: 20px auto;
+			    display: table;
+			    border-radius: 6px;
+			    box-shadow: 0px 1px 10px rgba(0,0,0,0.5);
+
+			}
+			form input[name="video_url"]{
+				width: 100%;
+				height: 38px;
+				border:1px solid #c70c81;
+				padding: 5px 10px;
+				background: rgba(255,255,255,0.97);
+				margin-bottom: 15px;
+				border-radius: 6px;
+			}
+			form input[type="submit"]{
+				padding: 9px 15px;
+				border-radius: 6px;
+				background: #f729a9;
+				color: #ffffff;
+				border:2px solid #c70c81;
+				font-weight: 600;
+				font-size: 16px;
+				text-transform: uppercase;
+				cursor: pointer;
+				transition: .5s ease all;
+			}
+			form input[type="submit"]:hover{
+				box-shadow:0px 0px 10px rgba(255,255,255,0.4);
+			}
+			.gap{
+				margin-top: 50px;
+			}
+			p a{
+				display: inline-block;
+				vertical-align: top;
+				margin-right: 15px;
+				margin-bottom: 6px;
+			}
+			p a:last-child{
+				margin-right: 0;
+
+			}
+		</style>
+
+    </head>
 <html>
-<body>
-        <p>We support Youtube, Vimeo and <a href="https://rg3.github.io/youtube-dl/supportedsites.html">many more...</a></p>
-        <form action="/fetch" method="get">
-                <input type="url" name="video_url">
-                <input type="submit" value="Download video">
-        </form>
-        <p>You may also like:</p>
-        <p><a href="https://www.amazon.com/Art-Cut-Conversations-Film-Editors-ebook/dp/B06X9YSF7F/ref=sr_1_8?ie=UTF8&qid=1549030040&sr=8-8&keywords=video+editing">Art of the Cut: Conversations with Film and TV Editors</a>, <a href="https://www.amazon.com/YouTuber-Journey-Complete-Pursuing-Creative/dp/1640851801/ref=sr_1_21?ie=UTF8&qid=1549030105&sr=8-21&keywords=video+editing">The YouTuber Journey: A Complete Guide to Pursuing a Creative Career Through YouTube </a></p>
-        <p>Powered by <a href="https://rg3.github.io/youtube-dl/index.html">youtube-dl</a></p>
-</body>
+	<body>
+		<div class="outer-wrapper">
+			<div class="inner-wrapper">
+		        <h2>We support Youtube, Vimeo and <a href="https://rg3.github.io/youtube-dl/supportedsites.html">many more...</a></h2>
+		        <form action="/fetch" method="get">
+		            <input type="url" name="video_url">
+		            <input type="submit" value="Download video">
+		        </form>
+		        <div class="seprator-wrap"><div class="seprator"></div></div>		        
+		        <h3>You may also like:</h3>
+		        <p><a href="https://www.amazon.com/Art-Cut-Conversations-Film-Editors-ebook/dp/B06X9YSF7F/ref=sr_1_8?ie=UTF8&qid=1549030040&sr=8-8&keywords=video+editing">Art of the Cut: Conversations with Film and TV Editors</a></br><a href="https://www.amazon.com/YouTuber-Journey-Complete-Pursuing-Creative/dp/1640851801/ref=sr_1_21?ie=UTF8&qid=1549030105&sr=8-21&keywords=video+editing">The YouTuber Journey: A Complete Guide to Pursuing a Creative Career Through YouTube </a></p>
+		        <div class="gap"></div>
+		        
+		       	<p>Powered by <a href="https://rg3.github.io/youtube-dl/index.html">youtube-dl</a></p>
+		    </div>
+	    </div>
+	</body>
 </html>
+
+
