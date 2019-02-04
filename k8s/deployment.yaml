@@ -14,5 +14,5 @@ spec:
     spec:
       containers:
         - name: youtube-web-dl
-          image: rl1987/youtube-dl-web:latest
+          image: rl1987/youtube-dl-web:1.0
           imagePullPolicy: Always
