@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: youtube-web-dl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: youtube-web-dl
+  template:
+    metadata:
+      labels:
+        app: youtube-web-dl
+    spec:
+      containers:
+        - name: youtube-web-dl
+          image: rl1987/youtube-dl-web:latest
