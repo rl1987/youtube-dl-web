@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,3 +17,12 @@ spec:
         - name: youtube-web-dl
           image: rl1987/youtube-dl-web:1.0
           imagePullPolicy: Always
+          livenessProbe:
+            initialDelaySeconds: 1
+            tcpSocket:
+              port: 8000
+          readinessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: /
+              port: 8000
