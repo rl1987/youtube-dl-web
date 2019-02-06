@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: youtube-web-dl
-          image: rl1987/youtube-dl-web:1.0
+          image: rl1987/youtube-dl-web:1.0.1
           imagePullPolicy: Always
           livenessProbe:
             initialDelaySeconds: 1
