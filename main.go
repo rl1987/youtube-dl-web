@@ -22,6 +22,8 @@ func main() {
 
 		url := r.URL.Query()["video_url"][0]
 
+		log.Println(url)
+
 		if !govalidator.IsURL(url) {
 			log.Printf("video_url failed validation: %s", url)
 			http.Error(w, "video_url parameter invalid", 500)
@@ -42,8 +44,6 @@ func main() {
 		w.Header().Set("Content-Disposition", "attachment; filename="+outputFilename)
 
 		cmd = exec.Command("youtube-dl", "--no-part", "-o", "-", url)
-
-		spew.Dump(cmd)
 
 		outPipe, err := cmd.StdoutPipe()
 		if err != nil {
