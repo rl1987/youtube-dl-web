@@ -53,11 +53,11 @@ func main() {
 			return
 		}
 
-		go func() { 
+		go func() {
 			if err := cmd.Run(); err != nil {
 				spew.Dump(err)
 			}
-		}
+		}()
 
 		w.WriteHeader(200)
 
