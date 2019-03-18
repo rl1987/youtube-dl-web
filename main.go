@@ -32,10 +32,11 @@ func main() {
 
 		// First, let's figure out filename
 		cmd := exec.Command("youtube-dl", "--get-filename", url)
-		outbuf, err := cmd.Output()
+		outbuf, err := cmd.CombinedOutput()
 		if err != nil {
 			spew.Dump(err)
 			http.Error(w, "Cannot determine file name", 500)
+			log.Println(string(outbuf))
 			return
 		}
 
@@ -52,7 +53,11 @@ func main() {
 			return
 		}
 
-		go cmd.Run() // XXX: disregarding errors for now
+		go func() { 
+			if err := cmd.Run(); err != nil {
+				spew.Dump(err)
+			}
+		}
 
 		w.WriteHeader(200)
 
